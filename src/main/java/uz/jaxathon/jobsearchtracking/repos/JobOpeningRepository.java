@@ -8,6 +8,4 @@ import uz.jaxathon.jobsearchtracking.entities.JobOpening;
 public interface JobOpeningRepository extends JpaRepository<JobOpening, Long> {
 
 
-
-
 }

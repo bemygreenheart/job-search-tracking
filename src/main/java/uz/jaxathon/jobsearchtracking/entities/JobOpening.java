@@ -1,29 +1,36 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-//@Getter
-//@Setter
-//@Entity
+@Getter
+@Setter
+@Entity
 public class JobOpening {
-//    @Id
+    @Setter(AccessLevel.NONE)
+    @Id @GeneratedValue
     private Long id;
     private String title;
     private String description;
     private String companyName;
     private double salary;
+    @Enumerated(EnumType.STRING)
     private JobType jobType;
+    @Enumerated(EnumType.STRING)
     private ExperienceLevel experienceLevel;
+    @OneToOne
     private OfficeLocation officeLocation;
+    @Enumerated(EnumType.STRING)
     private Education education;
     private LocalDateTime postedTime;
+    @Enumerated(EnumType.STRING)
     private WorkingFormat workingFormat;
+    @OneToMany(mappedBy = "jobOpening")
     private List<Skill> requiredSkills;
 
     public double getHourlySalary(){

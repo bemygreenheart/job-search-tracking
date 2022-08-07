@@ -6,4 +6,5 @@ public enum JobType {
     CONTRACT,
     TEMPORARY,
     INTERNSHIP
+
 }

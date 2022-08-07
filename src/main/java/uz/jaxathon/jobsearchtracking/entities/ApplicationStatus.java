@@ -8,6 +8,7 @@ public enum ApplicationStatus {
     TECHNICAL_INTERVIEW,
     PROBLEM_SOLVING_INTERVIEW,
     SYSTEM_DESIGN_INTERVIEW,
+    OTHER,
     REJECTED
 
 }
