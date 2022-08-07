@@ -33,6 +33,24 @@ public class JobOpening {
     @OneToMany(mappedBy = "jobOpening")
     private List<Skill> requiredSkills;
 
+    public JobOpening() {
+    }
+
+    public JobOpening(String title, String description, String companyName, double salary,
+                      JobType jobType, ExperienceLevel experienceLevel, OfficeLocation officeLocation,
+                      Education education, LocalDateTime postedTime, WorkingFormat workingFormat) {
+        this.title = title;
+        this.description = description;
+        this.companyName = companyName;
+        this.salary = salary;
+        this.jobType = jobType;
+        this.experienceLevel = experienceLevel;
+        this.officeLocation = officeLocation;
+        this.education = education;
+        this.postedTime = postedTime;
+        this.workingFormat = workingFormat;
+    }
+
     public double getHourlySalary(){
         return salary / Constants.NUMBER_OF_HOURS_A_YEAR;
     }
