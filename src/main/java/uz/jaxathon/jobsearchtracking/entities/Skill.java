@@ -2,13 +2,12 @@ package uz.jaxathon.jobsearchtracking.entities;
 
 
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class Skill {
 

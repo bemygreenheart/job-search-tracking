@@ -1,12 +1,12 @@
 package uz.jaxathon.jobsearchtracking.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+import uz.jaxathon.jobsearchtracking.dto.JobOpeningDto;
 import uz.jaxathon.jobsearchtracking.entities.JobOpening;
 import uz.jaxathon.jobsearchtracking.services.JobOpeningService;
-
-import java.util.List;
 
 @RestController
 public class JobOpeningController {
@@ -18,7 +18,29 @@ public class JobOpeningController {
     }
 
     @GetMapping(path = "/openings")
-    public List<JobOpening> getAllJobOpenings(){
-        return openingService.getAllOpenings();
+    public Page<JobOpening> getAllJobOpenings(Pageable page){
+        return openingService.getAllOpenings(page);
     }
+
+    @PostMapping (path = "/openings")
+    public void create(@RequestBody JobOpeningDto body){
+
+    }
+
+    @GetMapping(path = "/openings/{id}")
+    public JobOpening getOne(@PathVariable Long id){
+        return null;
+    }
+
+    @DeleteMapping(path = "/openings/{id}")
+    public void delete(@PathVariable Long id){
+
+    }
+
+    @PutMapping(path = "/openings/{id}")
+    public JobOpening update(@PathVariable Long id, @RequestBody JobOpeningDto body){
+        return null;
+    }
+
+
 }

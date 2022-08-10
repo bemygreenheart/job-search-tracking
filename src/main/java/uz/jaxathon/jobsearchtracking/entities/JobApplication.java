@@ -1,14 +1,14 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class JobApplication {
 
@@ -21,6 +21,9 @@ public class JobApplication {
     private String resumeVersion;
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
+
+    @OneToMany(mappedBy = "jobApplication")
+    private List<ApplicationStep> applicationSteps;
 
     public JobApplication() {
     }

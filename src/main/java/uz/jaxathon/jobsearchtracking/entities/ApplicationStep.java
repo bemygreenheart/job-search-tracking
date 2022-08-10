@@ -1,7 +1,7 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class ApplicationStep {
 
@@ -25,6 +24,9 @@ public class ApplicationStep {
     private ApplicationStatus matchingStatus;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
+    @ManyToOne
+    private JobApplication jobApplication;
     @OneToMany(mappedBy = "applicationStep")
     private List<Question> questions;
 

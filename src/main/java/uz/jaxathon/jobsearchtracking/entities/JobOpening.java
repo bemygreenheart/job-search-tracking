@@ -1,15 +1,14 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class JobOpening {
     @Setter(AccessLevel.NONE)
