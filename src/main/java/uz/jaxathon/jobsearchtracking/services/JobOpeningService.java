@@ -24,7 +24,7 @@ public class JobOpeningService {
         this.mapper = mapper;
     }
 
-    public Page<JobOpening> getAllOpenings(Pageable page) {
+    public Page<JobOpening> getAllJobOpenings(Pageable page) {
         return repository.findAll(page);
     }
 
@@ -33,16 +33,16 @@ public class JobOpeningService {
         return repository.save(entity);
     }
 
-    public JobOpening getById(Long id){
+    public JobOpening getJobOpeningById(Long id){
         return getOrThrow404(id);
     }
 
-    public void delete(Long id){
+    public void deleteJobOpening(Long id){
         JobOpening opening = getOrThrow404(id);
         repository.delete(opening);
     }
 
-    public JobOpening update(Long id, JobOpeningDto dto){
+    public JobOpening updateJobOpening(Long id, JobOpeningDto dto){
         JobOpening opening = getOrThrow404(id);
         mapper.updateEntityFromDto(dto, opening);
         return repository.save(opening);

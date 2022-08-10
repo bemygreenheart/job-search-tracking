@@ -19,27 +19,27 @@ public class JobOpeningController {
 
     @GetMapping(path = "/openings")
     public Page<JobOpening> getAllJobOpenings(Pageable page){
-        return openingService.getAllOpenings(page);
+        return openingService.getAllJobOpenings(page);
     }
 
     @PostMapping (path = "/openings")
-    public void create(@RequestBody JobOpeningDto body){
-
+    public JobOpening create(@RequestBody JobOpeningDto body){
+        return openingService.createJobOpening(body);
     }
 
     @GetMapping(path = "/openings/{id}")
     public JobOpening getOne(@PathVariable Long id){
-        return null;
+        return openingService.getJobOpeningById(id);
     }
 
     @DeleteMapping(path = "/openings/{id}")
     public void delete(@PathVariable Long id){
-
+        openingService.deleteJobOpening(id);
     }
 
     @PutMapping(path = "/openings/{id}")
     public JobOpening update(@PathVariable Long id, @RequestBody JobOpeningDto body){
-        return null;
+        return openingService.updateJobOpening(id, body);
     }
 
 
