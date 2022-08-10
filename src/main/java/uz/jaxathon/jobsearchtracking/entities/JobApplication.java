@@ -25,6 +25,10 @@ public class JobApplication {
     @OneToMany(mappedBy = "jobApplication")
     private List<ApplicationStep> applicationSteps;
 
+    @OneToOne
+    private JobOpening jobOpening;
+
+
     public JobApplication() {
     }
 

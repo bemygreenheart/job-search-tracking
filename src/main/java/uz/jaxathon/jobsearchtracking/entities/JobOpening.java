@@ -31,6 +31,10 @@ public class JobOpening {
     private WorkingFormat workingFormat;
     @OneToMany(mappedBy = "jobOpening")
     private List<Skill> requiredSkills;
+    @OneToOne
+    private Recruiter recruiter;
+    @OneToOne(mappedBy = "jobOpening")
+    private JobApplication jobApplication;
 
     public JobOpening() {
     }

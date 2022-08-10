@@ -1,6 +1,6 @@
 package uz.jaxathon.jobsearchtracking.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,37 +12,32 @@ import uz.jaxathon.jobsearchtracking.repos.JobOpeningRepository;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class JobOpeningService {
 
     private final JobOpeningRepository repository;
     private final JobOpeningMapper mapper;
 
-    @Autowired
-    public JobOpeningService(JobOpeningRepository repository, JobOpeningMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-
-    public Page<JobOpening> getAllJobOpenings(Pageable page) {
+    public Page<JobOpening> getAll(Pageable page) {
         return repository.findAll(page);
     }
 
-    public JobOpening createJobOpening(JobOpeningDto dto){
+    public JobOpening create(JobOpeningDto dto){
         JobOpening entity = mapper.mapDtoToEntity(dto);
         return repository.save(entity);
     }
 
-    public JobOpening getJobOpeningById(Long id){
+    public JobOpening getById(Long id){
         return getOrThrow404(id);
     }
 
-    public void deleteJobOpening(Long id){
+    public void delete(Long id){
         JobOpening opening = getOrThrow404(id);
         repository.delete(opening);
     }
 
-    public JobOpening updateJobOpening(Long id, JobOpeningDto dto){
+    public JobOpening update(Long id, JobOpeningDto dto){
         JobOpening opening = getOrThrow404(id);
         mapper.updateEntityFromDto(dto, opening);
         return repository.save(opening);
