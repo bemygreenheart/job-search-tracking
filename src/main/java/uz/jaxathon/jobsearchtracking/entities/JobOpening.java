@@ -1,5 +1,6 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -36,6 +37,10 @@ public class JobOpening {
     private Recruiter recruiter;
     @OneToOne(mappedBy = "jobOpening")
     private JobApplication jobApplication;
+
+    @JsonIgnore
+    @Version
+    private int version;
 
     public JobOpening() {
     }

@@ -1,13 +1,11 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -22,6 +20,12 @@ public class Question {
     // {given_answer} and {actual_answer} contain the link to google docs with the answer
     private String given_answer;
     private String actual_answer;
+
+    @JsonIgnore
+    @Version
+    private int version;
+
+    @JsonIgnore
     @ManyToOne
     private ApplicationStep applicationStep;
 

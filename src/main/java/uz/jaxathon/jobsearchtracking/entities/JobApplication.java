@@ -1,5 +1,6 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -31,6 +32,9 @@ public class JobApplication {
     @OneToOne
     private JobOpening jobOpening;
 
+    @JsonIgnore
+    @Version
+    private int version;
 
     public JobApplication() {
     }

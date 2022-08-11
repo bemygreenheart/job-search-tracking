@@ -8,6 +8,8 @@ import uz.jaxathon.jobsearchtracking.dto.QuestionDto;
 import uz.jaxathon.jobsearchtracking.entities.Question;
 import uz.jaxathon.jobsearchtracking.services.QuestionService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/questions")
 @RestController
@@ -20,7 +22,7 @@ public class QuestionController {
     }
 
     @PostMapping(path = "")
-    public Question create(@RequestBody QuestionDto body){
+    public Question create(@Valid @RequestBody QuestionDto body){
         return questionService.create(body);
     }
 
@@ -35,7 +37,7 @@ public class QuestionController {
     }
 
     @PutMapping(path = "/{questionId}")
-    public Question update(@PathVariable Long questionId, @RequestBody QuestionDto body){
+    public Question update(@PathVariable Long questionId, @Valid @RequestBody QuestionDto body){
         return questionService.update(questionId, body);
     }
 }

@@ -8,6 +8,8 @@ import uz.jaxathon.jobsearchtracking.dto.SkillDto;
 import uz.jaxathon.jobsearchtracking.entities.Skill;
 import uz.jaxathon.jobsearchtracking.services.SkillService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/skills")
 @RestController
@@ -20,7 +22,7 @@ public class SkillController {
     }
 
     @PostMapping(path = "")
-    public Skill create(@RequestBody SkillDto body){
+    public Skill create(@Valid @RequestBody SkillDto body){
         return skillService.create(body);
     }
 
@@ -35,7 +37,7 @@ public class SkillController {
     }
 
     @PutMapping(path = "/{id}")
-    public Skill update(@PathVariable Long id, @RequestBody SkillDto body){
+    public Skill update(@Valid @PathVariable Long id, @RequestBody SkillDto body){
         return skillService.update(id, body);
     }
 }

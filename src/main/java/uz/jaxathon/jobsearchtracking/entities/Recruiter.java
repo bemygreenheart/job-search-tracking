@@ -1,5 +1,6 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -18,6 +19,10 @@ public class Recruiter {
     private CommunicationType mainCommunicationType;
     private String email;
     private String addressingName;
+
+    @JsonIgnore
+    @Version
+    private int version;
 
     public Recruiter() {
     }

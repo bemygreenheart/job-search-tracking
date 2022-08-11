@@ -8,6 +8,8 @@ import uz.jaxathon.jobsearchtracking.dto.OfficeLocationDto;
 import uz.jaxathon.jobsearchtracking.entities.OfficeLocation;
 import uz.jaxathon.jobsearchtracking.services.OfficeLocationService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/office-locations")
 @RestController
@@ -21,7 +23,7 @@ public class OfficeLocationController {
     }
 
     @PostMapping(path = "")
-    public OfficeLocation create(@RequestBody OfficeLocationDto body){
+    public OfficeLocation create(@Valid @RequestBody OfficeLocationDto body){
         return locationService.create(body);
     }
 
@@ -36,7 +38,7 @@ public class OfficeLocationController {
     }
 
     @PutMapping(path = "/{locationId}")
-    public OfficeLocation update(@PathVariable Long locationId, @RequestBody OfficeLocationDto body){
+    public OfficeLocation update(@Valid @PathVariable Long locationId, @RequestBody OfficeLocationDto body){
         return locationService.update(locationId, body);
     }
 }

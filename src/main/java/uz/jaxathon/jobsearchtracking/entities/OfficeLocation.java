@@ -1,5 +1,6 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Data
 @Entity
@@ -18,6 +20,9 @@ public class OfficeLocation {
     private String city;
     private String state;
 
+    @JsonIgnore
+    @Version
+    private int version;
     public OfficeLocation() {
     }
 

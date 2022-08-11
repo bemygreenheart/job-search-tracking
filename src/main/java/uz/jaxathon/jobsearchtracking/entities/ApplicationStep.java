@@ -32,6 +32,10 @@ public class ApplicationStep {
     @OneToMany(mappedBy = "applicationStep")
     private List<Question> questions = new ArrayList<>();
 
+    @JsonIgnore
+    @Version
+    private int version;
+
 
     public ApplicationStep() {
         this.matchingStatus = ApplicationStatus.OTHER;
