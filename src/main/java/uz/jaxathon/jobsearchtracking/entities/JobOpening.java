@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,7 +31,7 @@ public class JobOpening {
     @Enumerated(EnumType.STRING)
     private WorkingFormat workingFormat;
     @OneToMany(mappedBy = "jobOpening")
-    private List<Skill> requiredSkills;
+    private List<Skill> requiredSkills = new ArrayList<>();
     @OneToOne
     private Recruiter recruiter;
     @OneToOne(mappedBy = "jobOpening")
@@ -55,7 +56,8 @@ public class JobOpening {
     }
 
     public double getHourlySalary(){
-        return salary / Constants.NUMBER_OF_HOURS_A_YEAR;
+        double salary = this.salary / Constants.NUMBER_OF_HOURS_A_YEAR;
+        return Math.floor(salary * 100) / 100;
     }
 
     public void setSalaryWithPerHourRate(double perHourRate){

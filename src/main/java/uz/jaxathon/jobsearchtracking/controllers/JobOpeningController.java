@@ -8,6 +8,8 @@ import uz.jaxathon.jobsearchtracking.dto.JobOpeningDto;
 import uz.jaxathon.jobsearchtracking.entities.JobOpening;
 import uz.jaxathon.jobsearchtracking.services.JobOpeningService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/openings")
 @RestController
@@ -20,7 +22,7 @@ public class JobOpeningController {
     }
 
     @PostMapping (path = "")
-    public JobOpening create(@RequestBody JobOpeningDto body){
+    public JobOpening create(@Valid @RequestBody JobOpeningDto body){
         return openingService.create(body);
     }
 
@@ -35,7 +37,7 @@ public class JobOpeningController {
     }
 
     @PutMapping(path = "/{id}")
-    public JobOpening update(@PathVariable Long id, @RequestBody JobOpeningDto body){
+    public JobOpening update(@PathVariable Long id, @Valid @RequestBody JobOpeningDto body){
         return openingService.update(id, body);
     }
 

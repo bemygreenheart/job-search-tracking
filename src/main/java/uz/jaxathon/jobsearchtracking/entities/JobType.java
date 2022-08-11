@@ -5,6 +5,7 @@ public enum JobType {
     PART_TIME,
     CONTRACT,
     TEMPORARY,
-    INTERNSHIP
+    INTERNSHIP,
+    UNKNOWN
 
 }

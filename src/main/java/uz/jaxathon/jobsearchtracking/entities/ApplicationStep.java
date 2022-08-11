@@ -28,13 +28,12 @@ public class ApplicationStep {
     @ManyToOne
     private JobApplication jobApplication;
     @OneToMany(mappedBy = "applicationStep")
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
 
     public ApplicationStep() {
         this.matchingStatus = ApplicationStatus.OTHER;
         this.startTime = LocalDateTime.now();
-        this.questions = new ArrayList<>();
     }
 
     public ApplicationStep(String name, String feedback, String summary, String interviewerName,
@@ -46,6 +45,5 @@ public class ApplicationStep {
         this.matchingStatus = matchingStatus;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.questions = new ArrayList<>();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,7 +24,7 @@ public class JobApplication {
     private ApplicationStatus applicationStatus;
 
     @OneToMany(mappedBy = "jobApplication")
-    private List<ApplicationStep> applicationSteps;
+    private List<ApplicationStep> applicationSteps = new ArrayList<>();
 
     @OneToOne
     private JobOpening jobOpening;
