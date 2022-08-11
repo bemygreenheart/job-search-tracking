@@ -7,10 +7,11 @@ import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Skill {
+public class Skill implements Serializable {
 
     @Setter(AccessLevel.NONE)
     @Id @GeneratedValue

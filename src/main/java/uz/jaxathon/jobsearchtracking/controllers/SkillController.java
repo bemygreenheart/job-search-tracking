@@ -22,8 +22,8 @@ public class SkillController {
     }
 
     @PostMapping(path = "")
-    public Skill create(@Valid @RequestBody SkillDto body){
-        return skillService.create(body);
+    public void create(@Valid @RequestBody SkillDto body){
+        skillService.create(body);
     }
 
     @GetMapping(path = "/{id}")
@@ -37,7 +37,7 @@ public class SkillController {
     }
 
     @PutMapping(path = "/{id}")
-    public Skill update(@Valid @PathVariable Long id, @RequestBody SkillDto body){
-        return skillService.update(id, body);
+    public void update(@Valid @PathVariable Long id, @RequestBody SkillDto body){
+        skillService.update(id, body);
     }
 }

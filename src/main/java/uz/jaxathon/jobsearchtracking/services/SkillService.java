@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import uz.jaxathon.jobsearchtracking.dto.SkillDto;
 import uz.jaxathon.jobsearchtracking.entities.Skill;
 import uz.jaxathon.jobsearchtracking.exceptions.ResourceNotFoundException;
+import uz.jaxathon.jobsearchtracking.jms.SkillProducer;
 import uz.jaxathon.jobsearchtracking.mappers.SkillMapper;
 import uz.jaxathon.jobsearchtracking.repos.SkillRepository;
 
@@ -18,14 +19,15 @@ public class SkillService {
 
     private final SkillRepository repository;
     private final SkillMapper mapper;
+    private final SkillProducer skillProducer;
 
     public Page<Skill> getAll(Pageable page) {
         return repository.findAll(page);
     }
 
-    public Skill create(SkillDto dto){
+    public void create(SkillDto dto){
         Skill skill = mapper.mapDtoToEntity(dto);
-        return repository.save(skill);
+        skillProducer.sendCreate(skill);
     }
 
     public Skill getById(Long id){
@@ -33,14 +35,13 @@ public class SkillService {
     }
 
     public void delete(Long id){
-        Skill skill = getOrThrow404(id);
-        repository.delete(skill);
+        skillProducer.sendDelete(id);
     }
 
-    public Skill update(Long id, SkillDto dto){
+    public void update(Long id, SkillDto dto){
         Skill skill = getOrThrow404(id);
         mapper.updateEntityFromDto(dto, skill);
-        return repository.save(skill);
+        skillProducer.sendUpdate(skill);
     }
 
     private Skill getOrThrow404(Long id){
