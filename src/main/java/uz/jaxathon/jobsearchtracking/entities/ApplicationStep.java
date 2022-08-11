@@ -1,5 +1,6 @@
 package uz.jaxathon.jobsearchtracking.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class ApplicationStep {
     private LocalDateTime endTime;
 
     @ManyToOne
+    @JsonIgnore
     private JobApplication jobApplication;
     @OneToMany(mappedBy = "applicationStep")
     private List<Question> questions = new ArrayList<>();
@@ -45,5 +47,12 @@ public class ApplicationStep {
         this.matchingStatus = matchingStatus;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public void setJobApplication(JobApplication jobApplication) {
+        if(this.jobApplication == null){
+            this.jobApplication = jobApplication;
+            jobApplication.addApplicationStep(this);
+        }
     }
 }

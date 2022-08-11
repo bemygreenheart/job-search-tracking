@@ -5,8 +5,10 @@ import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 @Data
@@ -40,5 +42,20 @@ public class JobApplication {
         this.submittedTime = submittedTime;
         this.resumeVersion = resumeVersion;
         this.applicationStatus = applicationStatus;
+    }
+
+    @Transactional
+    public void addApplicationStep(ApplicationStep step){
+        this.applicationSteps.add(step);
+        updateStatusFromNewStep(step);
+        step.setJobApplication(this);
+    }
+
+    private void updateStatusFromNewStep(ApplicationStep step){
+        ApplicationStatus stepStatus = step.getMatchingStatus();
+        EnumSet stepStatusesWithoutEffectOfApplicationStatus = EnumSet.of(ApplicationStatus.OTHER, ApplicationStatus.SUBMITTED);
+        if(!stepStatusesWithoutEffectOfApplicationStatus.contains(stepStatus)){
+            this.setApplicationStatus(stepStatus);
+        }
     }
 }

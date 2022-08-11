@@ -43,7 +43,7 @@ public class JobApplicationService {
         return repository.save(application);
     }
 
-    private JobApplication getOrThrow404(Long id){
+     JobApplication getOrThrow404(Long id){
         Optional<JobApplication> application = repository.findById(id);
         if(application.isPresent()){
             return application.get();

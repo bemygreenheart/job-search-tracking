@@ -1,16 +1,19 @@
 package uz.jaxathon.jobsearchtracking.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uz.jaxathon.jobsearchtracking.dto.ApplicationStepDto;
+import uz.jaxathon.jobsearchtracking.entities.ApplicationStatus;
 import uz.jaxathon.jobsearchtracking.entities.ApplicationStep;
+import uz.jaxathon.jobsearchtracking.entities.JobApplication;
 import uz.jaxathon.jobsearchtracking.exceptions.ResourceNotFoundException;
 import uz.jaxathon.jobsearchtracking.mappers.ApplicationStepMapper;
 import uz.jaxathon.jobsearchtracking.repos.ApplicationStepRepository;
+import uz.jaxathon.jobsearchtracking.repos.JobApplicationRepository;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -18,14 +21,21 @@ import java.util.Optional;
 public class ApplicationStepService {
 
     private final ApplicationStepRepository repository;
+    private final JobApplicationService jobApplicationService;
+    private final JobApplicationRepository jobApplicationRepository;
     private final ApplicationStepMapper mapper;
 
-    public Page<ApplicationStep> getAll(Pageable page) {
-        return repository.findAll(page);
+    @Transactional
+    public List<ApplicationStep> getAll(Long applicationId) {
+        JobApplication jobApplication = jobApplicationService.getOrThrow404(applicationId);
+        return jobApplication.getApplicationSteps();
     }
 
-    public ApplicationStep create(ApplicationStepDto dto){
+    @Transactional
+    public ApplicationStep create(Long applicationId, ApplicationStepDto dto){
+        JobApplication jobApplication = jobApplicationService.getOrThrow404(applicationId);
         ApplicationStep applicationStep = mapper.mapDtoToEntity(dto);
+        applicationStep.setJobApplication(jobApplication);
         return repository.save(applicationStep);
     }
 
@@ -40,11 +50,13 @@ public class ApplicationStepService {
 
     public ApplicationStep update(Long id, ApplicationStepDto dto){
         ApplicationStep applicationStep = getOrThrow404(id);
+        ApplicationStatus oldStatus = applicationStep.getMatchingStatus();
         mapper.updateEntityFromDto(dto, applicationStep);
+        applicationStep.setMatchingStatus(oldStatus);
         return repository.save(applicationStep);
     }
 
-    private ApplicationStep getOrThrow404(Long id){
+    ApplicationStep getOrThrow404(Long id){
         Optional<ApplicationStep> applicationStep = repository.findById(id);
         if(applicationStep.isPresent()){
             return applicationStep.get();

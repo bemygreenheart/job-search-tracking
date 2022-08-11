@@ -8,6 +8,8 @@ import uz.jaxathon.jobsearchtracking.dto.RecruiterDto;
 import uz.jaxathon.jobsearchtracking.entities.Recruiter;
 import uz.jaxathon.jobsearchtracking.services.RecruiterService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/recruiters")
 @RestController
@@ -21,7 +23,7 @@ public class RecruiterController {
     }
 
     @PostMapping(path = "")
-    public Recruiter create(@RequestBody RecruiterDto body){
+    public Recruiter create(@Valid @RequestBody RecruiterDto body){
         return recruiterService.create(body);
     }
 
@@ -36,7 +38,7 @@ public class RecruiterController {
     }
 
     @PutMapping(path = "/{recruiterId}")
-    public Recruiter update(@PathVariable Long recruiterId, @RequestBody RecruiterDto body){
+    public Recruiter update(@PathVariable Long recruiterId, @Valid @RequestBody RecruiterDto body){
         return recruiterService.update(recruiterId, body);
     }
 }
